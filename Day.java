@@ -19,6 +19,49 @@ public class Day implements Cloneable{
     public Day(String sDay){
         set(sDay);
     }
+
+	public Day newDay(String sDay,int d){
+		int nDate=0;
+		String[] sDayParts = sDay.split("-");
+		int m = MonthNames.indexOf(sDayParts[1])/3 +1;
+		Day nDay = new Day(sDay);
+		nDay.day+=d;
+		if(valid(nDay.year, nDay.month, nDay.day)){
+			return nDay;
+		}
+		else{
+			nDay.day-=d;
+			
+			switch (m) {
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+				case 12:
+					nDate = d-(31-nDay.day) ;
+				case 4:
+				case 6:
+				case 9:
+				case 11:
+					nDate = d-(30-nDay.day) ;
+				case 2:
+					if (isLeapYear(nDay.year))
+						nDate = d-(29-nDay.day) ;
+					else
+						nDate = d-(28-nDay.day) ;
+						
+
+				
+			}
+			nDay.day = nDate;
+			nDay.month++;
+		}
+		return nDay;
+
+	}
+
     private static final String MonthNames = "JanFebMarAprMayJunJulAugSepOctNovDec";
 	// check if a given year is a leap year
 	static public boolean isLeapYear(int y)

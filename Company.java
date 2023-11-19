@@ -34,8 +34,7 @@ public class Company {
         Project p = new Project(pn, d, t);
         allProjects.add(p);
         //Collections.sort( allEmployees ); //allEmployees       #incase needed to sort 
-
-
+        return p;
     }
 
     public Team createTeam( String tn,String leaderName ) // See how it is called in main()

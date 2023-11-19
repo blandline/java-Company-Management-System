@@ -47,7 +47,7 @@ public class Main {
 				RecordedCommand.undoOneCommand();
 			if (cmdParts[0].equals("redo"))
 				RecordedCommand.redoOneCommand();
-			if (cmd)
+			
 		}
 		inFile.close();
 			
