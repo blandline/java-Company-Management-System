@@ -12,6 +12,7 @@ public class Company {
     private Company() {
         allEmployees = new ArrayList<>();
         allTeams = new ArrayList<>();
+        allProjects = new ArrayList<>();
 
     }
 
@@ -63,6 +64,11 @@ public class Company {
     public void listEmployees(){
         for(Employee e: allEmployees){
             System.out.println(e);
+        }
+    }
+     public void listProjects(){
+        for(Project p: allProjects){
+            System.out.println(p);
         }
     }
 
