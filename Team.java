@@ -10,6 +10,7 @@ public Team(String n, Employee hd) {
 	teamName = n;
     head = hd;
     dateSetup = SystemDate.getInstance().clone();//Set all object fields (Read lab sheet!)
+	proj = null;
 }
 public String getTeamName(){
 	return teamName;
@@ -27,6 +28,9 @@ public static void list(ArrayList<Team> list) {
 @Override
 public int compareTo(Team another)  {
 	return this.teamName.compareTo(another.teamName);
+}
+public Project getProject() {
+	return proj;
 }
 
 }

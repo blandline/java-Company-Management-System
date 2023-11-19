@@ -12,6 +12,7 @@ public class Company {
     private Company() {
         allEmployees = new ArrayList<>();
         allTeams = new ArrayList<>();
+        allProjects = new ArrayList<>();
 
     }
 
@@ -65,6 +66,11 @@ public class Company {
             System.out.println(e);
         }
     }
+     public void listProjects(){
+        for(Project p: allProjects){
+            System.out.println(p);
+        }
+    }
 
 
    
@@ -77,10 +83,28 @@ public class Company {
         return null;
     }
 
+    public Project findProject(String n){
+        for(Project p: allProjects){
+            if(p.getProjName().equals(n)){
+                return p;
+            }
+        }
+        return null;
+    }
+
     public Employee findEmployee(String n){
         for(Employee e: allEmployees){
             if(e.getName().equals(n)){
                 return e;
+            }
+        }
+        return null;
+    }
+
+    public static String getProjTeam(Object n) {
+        for(Team t: allTeams){
+            if(t.getProject().getProjName().equals(n)){
+                return t.getTeamName();
             }
         }
         return null;

@@ -55,8 +55,11 @@ public class Day implements Cloneable{
 
 				
 			}
-			nDay.day = nDate;
+			nDay.day = nDate-1;
 			nDay.month++;
+			if(!valid(nDay.year, nDay.month, nDay.day)){
+				nDay.day++;
+			}
 		}
 		return nDay;
 

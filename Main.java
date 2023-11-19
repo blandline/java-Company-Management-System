@@ -41,13 +41,18 @@ public class Main {
 				(new CmdHire()).execute(cmdParts);
 			if (cmdParts[0].equals("listEmployees"))
 				(new CmdListEmployees()).execute(cmdParts);
-				if (cmdParts[0].equals("listTeams"))
-				(new CmdListTeams()).execute(cmdParts);
+			if (cmdParts[0].equals("listTeams"))
+			(new CmdListTeams()).execute(cmdParts);
 			if (cmdParts[0].equals("undo"))
 				RecordedCommand.undoOneCommand();
 			if (cmdParts[0].equals("redo"))
 				RecordedCommand.redoOneCommand();
-			
+			if (cmdParts[0].equals("createProject"))
+				(new CmdCreateProject()).execute(cmdParts);
+			if (cmdParts[0].equals("listProjects"))
+				(new CmdListProjects()).execute(cmdParts);
+			if (cmdParts[0].equals("assign"))
+				(new CmdListProjects()).execute(cmdParts);
 		}
 		inFile.close();
 			
