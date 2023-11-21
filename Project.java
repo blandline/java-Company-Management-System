@@ -19,7 +19,8 @@ public class Project implements Comparable<Project>{
 
     @Override
     public String toString(){
-        return projName +"|"+ startDay +"|" +endDay +"|"+ Company.getProjTeam(this.projName);
+        Company c = Company.getInstance();
+        return projName +"    "+ startDay +"    " +endDay +"   ";
     }
 
     public Object getProjName() {
@@ -31,5 +32,5 @@ public class Project implements Comparable<Project>{
         return this.projName.compareTo(another.projName);
     }
     
-//
+
 }

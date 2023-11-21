@@ -6,6 +6,7 @@ public class Company {
     private ArrayList<Project> allProjects;
     private ArrayList<Employee> allEmployees;
     private ArrayList<Team> allTeams;
+    private ArrayList<ProjectAssignment> allAssignments;
 
     private static Company instance = new Company() ;
 
@@ -13,6 +14,7 @@ public class Company {
         allEmployees = new ArrayList<>();
         allTeams = new ArrayList<>();
         allProjects = new ArrayList<>();
+        allAssignments = new ArrayList<>();
 
     }
 
@@ -68,7 +70,14 @@ public class Company {
     }
      public void listProjects(){
         for(Project p: allProjects){
-            System.out.println(p);
+            String team = "--";
+            for(int i =0;i<allAssignments.size();i++){       // make a func to check if it is in assignments and if it is then print that
+                if(allAssignments.get(i).getProject()==p){
+                    team = allAssignments.get(i).getTeamName();
+                }    
+            
+            }
+            System.out.println(p+team);
         }
     }
 
@@ -101,13 +110,17 @@ public class Company {
         return null;
     }
 
-    public static String getProjTeam(Object n) {
+    public String getProjTeam(Object n) {
         for(Team t: allTeams){
             if(t.getProject().getProjName().equals(n)){
                 return t.getTeamName();
             }
         }
         return null;
+    }
+
+    public void assignProject(ProjectAssignment a) {
+        allAssignments.add(a);
     }
 
 }

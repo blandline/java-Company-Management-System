@@ -20,49 +20,79 @@ public class Day implements Cloneable{
         set(sDay);
     }
 
-	public Day newDay(String sDay,int d){
-		int nDate=0;
-		String[] sDayParts = sDay.split("-");
-		int m = MonthNames.indexOf(sDayParts[1])/3 +1;
-		Day nDay = new Day(sDay);
-		nDay.day+=d;
-		if(valid(nDay.year, nDay.month, nDay.day)){
-			return nDay;
-		}
-		else{
-			nDay.day-=d;
+	// public Day newDay(String sDay,int d){
+	// 	int nDate=0;
+	// 	String[] sDayParts = sDay.split("-");
+	// 	int m = MonthNames.indexOf(sDayParts[1])/3 +1;
+	// 	Day nDay = new Day(sDay);
+	// 	nDay.day+=d;
+	// 	if(valid(nDay.year, nDay.month, nDay.day)){
+	// 		return nDay;
+	// 	}
+	// 	else{
+	// 		nDay.day-=d;
 			
-			switch (m) {
-				case 1:
-				case 3:
-				case 5:
-				case 7:
-				case 8:
-				case 10:
-				case 12:
-					nDate = d-(31-nDay.day) ;
-				case 4:
-				case 6:
-				case 9:
-				case 11:
-					nDate = d-(30-nDay.day) ;
-				case 2:
-					if (isLeapYear(nDay.year))
-						nDate = d-(29-nDay.day) ;
-					else
-						nDate = d-(28-nDay.day) ;
+	// 		switch (m) {
+	// 			case 1:
+	// 			case 3:
+	// 			case 5:
+	// 			case 7:
+	// 			case 8:
+	// 			case 10:
+	// 			case 12:
+	// 				nDate = d-(31-nDay.day) ;
+	// 			case 4:
+	// 			case 6:
+	// 			case 9:
+	// 			case 11:
+	// 				nDate = d-(30-nDay.day) ;
+	// 			case 2:
+	// 				if (isLeapYear(nDay.year))
+	// 					nDate = d-(29-nDay.day) ;
+	// 				else
+	// 					nDate = d-(28-nDay.day) ;
 						
 
 				
-			}
-			nDay.day = nDate-1;
-			nDay.month++;
-			if(!valid(nDay.year, nDay.month, nDay.day)){
-				nDay.day++;
-			}
-		}
-		return nDay;
+	// 		}
+	// 		nDay.day = nDate-1;
+	// 		nDay.month++;
+	// 		if(!valid(nDay.year, nDay.month, nDay.day)){
+	// 			nDay.day++;
+	// 		}
+	// 	}
+	// 	return nDay;
 
+	// }
+
+	public Day newDay(String sDay,int d){
+		// String[] sDayParts = sDay.split("-");
+		// int m = MonthNames.indexOf(sDayParts[1])/3 +1;
+		Day oDay = new Day(sDay);
+		oDay.day+=d-1;
+		while(!valid(oDay.year,oDay.month,oDay.day)){
+			oDay.day-=getDaysForMonth(oDay.year, oDay.month);
+			oDay.month++;
+		}
+		return oDay;
+
+	}
+
+	public int getDaysForMonth(int y,int m){
+		
+		switch(m){
+			case 1: case 3: case 5: case 7:
+			case 8: case 10: case 12:
+					 return 31; 
+			case 4: case 6: case 9: case 11:
+					 return 30; 
+			case 2:
+					 if (isLeapYear(y))
+						 return 29; 
+					 else
+						 return 28; 
+		}
+		return 0;
 	}
 
     private static final String MonthNames = "JanFebMarAprMayJunJulAugSepOctNovDec";

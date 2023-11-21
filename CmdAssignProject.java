@@ -2,6 +2,7 @@
 public class CmdAssignProject extends RecordedCommand{
     private Team t;
     private Project p;
+    private ProjectAssignment a;
     
 
      
@@ -10,7 +11,8 @@ public class CmdAssignProject extends RecordedCommand{
         Company company = Company.getInstance();
         p = company.findProject(cmdParts[1]);
         t = company.findTeam(cmdParts[2]);
-        t.setProj(p);
+        a = new ProjectAssignment(t, p);
+        company.assignProject(a);
         addUndoCommand(this);
         clearRedoList();
         System.out.println("Done.");

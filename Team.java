@@ -4,20 +4,18 @@ public class Team implements Comparable<Team>{
     private String teamName;
 	private Employee head;
 	private Day dateSetup;
-	private Project proj;
+	// private Project proj;
 
 public Team(String n, Employee hd) {
 	teamName = n;
     head = hd;
     dateSetup = SystemDate.getInstance().clone();//Set all object fields (Read lab sheet!)
-	proj = null;
+	// proj = null;
 }
 public String getTeamName(){
 	return teamName;
 }
-public void setProj(Project p){
-	proj = p;
-}
+
 
 public static void list(ArrayList<Team> list) {
 	//Learn: "-" means left-aligned
@@ -29,8 +27,6 @@ public static void list(ArrayList<Team> list) {
 public int compareTo(Team another)  {
 	return this.teamName.compareTo(another.teamName);
 }
-public Project getProject() {
-	return proj;
-}
+
 
 }

@@ -52,7 +52,7 @@ public class Main {
 			if (cmdParts[0].equals("listProjects"))
 				(new CmdListProjects()).execute(cmdParts);
 			if (cmdParts[0].equals("assign"))
-				(new CmdListProjects()).execute(cmdParts);
+				(new CmdAssignProject()).execute(cmdParts);
 		}
 		inFile.close();
 			
