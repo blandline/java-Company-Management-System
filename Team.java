@@ -16,6 +16,9 @@ public String getTeamName(){
 	return teamName;
 }
 
+public String getLeaderName(){
+	return this.head.getName();
+}
 
 public static void list(ArrayList<Team> list) {
 	//Learn: "-" means left-aligned

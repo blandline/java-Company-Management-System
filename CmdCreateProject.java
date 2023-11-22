@@ -14,7 +14,7 @@ public class CmdCreateProject extends RecordedCommand{
         projName = cmdParts[1];
         projTime = Integer.parseInt(cmdParts[3]);
         company.createProject(cmdParts[1], cmdParts[2],projTime);
-        // e = company.findEmployee(cmdParts[1]);
+        p = company.findProject(cmdParts[1]);
         addUndoCommand(this);
         clearRedoList();
         System.out.println("Done.");
@@ -24,16 +24,16 @@ public class CmdCreateProject extends RecordedCommand{
 
     @Override
     public void undoMe(){
-        // Company company = Company.getInstance();
-        // company.removeEmployee(e);
-        // super.addRedoCommand(this); 
+        Company company = Company.getInstance();
+        company.removeProject(p);
+        super.addRedoCommand(this); 
     }
 
     @Override
     public void redoMe(){
-        // Company company = Company.getInstance();
-        // company.addEmployee(e);
-        // super.addUndoCommand(this);
+        Company company = Company.getInstance();
+        company.addProject(p);
+        super.addUndoCommand(this);
     }
 }
 

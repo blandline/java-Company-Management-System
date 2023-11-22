@@ -33,10 +33,13 @@ public class Company {
         Collections.sort( allEmployees ); //allEmployees
         return e ;
     }
+    public void addProject(Project p){
+        allProjects.add(p);
+    }
     public Project createProject(String pn,String d,int t){
         Project p = new Project(pn, d, t);
         allProjects.add(p);
-        //Collections.sort( allEmployees ); //allEmployees       #incase needed to sort 
+        Collections.sort( allProjects );       
         return p;
     }
 
@@ -69,15 +72,16 @@ public class Company {
         }
     }
      public void listProjects(){
+        System.out.printf("%-9s%-13s%-13s%-13s\n","Project", "Start Day", "End Day", "Team");
         for(Project p: allProjects){
             String team = "--";
             for(int i =0;i<allAssignments.size();i++){       // make a func to check if it is in assignments and if it is then print that
                 if(allAssignments.get(i).getProject()==p){
-                    team = allAssignments.get(i).getTeamName();
+                    team = allAssignments.get(i).getTeamName()+"("+allAssignments.get(i).getTeam().getLeaderName()+")";
                 }    
             
             }
-            System.out.println(p+team);
+            System.out.printf(p+"%-13s%n",team);
         }
     }
 
@@ -110,17 +114,25 @@ public class Company {
         return null;
     }
 
-    public String getProjTeam(Object n) {
-        for(Team t: allTeams){
-            if(t.getProject().getProjName().equals(n)){
-                return t.getTeamName();
-            }
-        }
-        return null;
-    }
+    // public String getProjTeam(Object n) {
+    //     for(Team t: allTeams){
+    //         if(t.getProject().getProjName().equals(n)){
+    //             return t.getTeamName();
+    //         }
+    //     }
+    //     return null;
+    // }                    //adjust accordingly later as per requirment
 
     public void assignProject(ProjectAssignment a) {
         allAssignments.add(a);
+    }
+
+    public void removeAssignment(ProjectAssignment a) {
+        allAssignments.remove(a);
+    }
+
+    public void removeProject(Project p) {
+        allProjects.remove(p);
     }
 
 }

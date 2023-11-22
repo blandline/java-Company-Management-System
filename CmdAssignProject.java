@@ -22,15 +22,15 @@ public class CmdAssignProject extends RecordedCommand{
 
     @Override
     public void undoMe(){
-        // Company company = Company.getInstance();
-        // company.removeEmployee(e);
-        // super.addRedoCommand(this); 
+        Company company = Company.getInstance();
+        company.removeAssignment(a);
+        super.addRedoCommand(this); 
     }
 
     @Override
     public void redoMe(){
-        // Company company = Company.getInstance();
-        // company.addEmployee(e);
-        // super.addUndoCommand(this);
+        Company company = Company.getInstance();
+        company.assignProject(a);
+        super.addUndoCommand(this);
     }
 }

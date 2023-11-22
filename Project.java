@@ -20,7 +20,8 @@ public class Project implements Comparable<Project>{
     @Override
     public String toString(){
         Company c = Company.getInstance();
-        return projName +"    "+ startDay +"    " +endDay +"   ";
+        String output = String.format("%-9s%-13s%-13s",projName,startDay,endDay);
+        return output;
     }
 
     public Object getProjName() {
