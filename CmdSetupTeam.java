@@ -7,6 +7,7 @@ public class CmdSetupTeam extends RecordedCommand{
     @Override
     public void execute(String[] cmdParts){
         
+        
         Company company = Company.getInstance();
         company.createTeam(cmdParts[1], cmdParts[2]);
         t = company.findTeam(cmdParts[1]);

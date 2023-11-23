@@ -26,9 +26,12 @@ public class Company {
         Team.list( allTeams );
     }
 
-    public Employee createEmployee( String n,int al ) // See how it is called in main()
+    public Employee createEmployee( String n,int al ) throws ExEmployeeExists // See how it is called in main()
     {
         Employee e = new Employee( n,al );
+        if(findEmployee(e.getName())!=null){
+            throw new ExEmployeeExists();
+        }
         allEmployees.add( e );
         Collections.sort( allEmployees ); //allEmployees
         return e ;

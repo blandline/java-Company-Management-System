@@ -8,12 +8,20 @@ public class ChangeStartDay extends RecordedCommand{
     @Override
     public void execute(String[] cmdParts){
         
-        s = SystemDate.getInstance().clone();
-        newDate = cmdParts[1];
-        SystemDate.getInstance().set(cmdParts[1]);
-        addUndoCommand(this);
-        clearRedoList();
-        System.out.println("Done.");
+        try {
+            if (cmdParts.length<3){
+                throw new ExInsufficientArguments();
+            } 
+            s = SystemDate.getInstance().clone();
+            newDate = cmdParts[1];
+            SystemDate.getInstance().set(cmdParts[1]);
+            addUndoCommand(this);
+            clearRedoList();
+            System.out.println("Done.");
+        } catch (ExInsufficientArguments e) {
+            
+            System.out.println(e.getMessage());;
+        }
 
         
     }
