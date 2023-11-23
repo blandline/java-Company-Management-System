@@ -8,14 +8,31 @@ public class CmdAssignProject extends RecordedCommand{
      
     @Override
     public void execute(String[] cmdParts){
-        Company company = Company.getInstance();
-        p = company.findProject(cmdParts[1]);
-        t = company.findTeam(cmdParts[2]);
-        a = new ProjectAssignment(t, p);
-        company.assignProject(a);
-        addUndoCommand(this);
-        clearRedoList();
-        System.out.println("Done.");
+        try {
+            if (cmdParts.length<3){
+                throw new ExInsufficientArguments();
+            } 
+            Company company = Company.getInstance();
+            p = company.findProject(cmdParts[1]);
+            if(p==null){
+                throw new ExProjectNotFound();
+            }
+            t = company.findTeam(cmdParts[2]);
+            if(t==null){
+                throw new ExTeamNotFound(); 
+            }
+            a = new ProjectAssignment(t, p);
+            company.assignProject(a);
+            addUndoCommand(this);
+            clearRedoList();
+            System.out.println("Done.");
+        } catch (ExInsufficientArguments e) {
+            System.out.println(e.getMessage());
+        } catch (ExProjectNotFound e) {
+            System.out.println(e.getMessage());
+        } catch (ExTeamNotFound e) {
+            System.out.println(e.getMessage());
+        } 
 
         
     }

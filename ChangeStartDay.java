@@ -9,7 +9,7 @@ public class ChangeStartDay extends RecordedCommand{
     public void execute(String[] cmdParts){
         
         try {
-            if (cmdParts.length<3){
+            if (cmdParts.length<2){
                 throw new ExInsufficientArguments();
             } 
             s = SystemDate.getInstance().clone();
@@ -20,7 +20,7 @@ public class ChangeStartDay extends RecordedCommand{
             System.out.println("Done.");
         } catch (ExInsufficientArguments e) {
             
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
 
         

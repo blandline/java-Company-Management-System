@@ -24,7 +24,7 @@ public class Project implements Comparable<Project>{
         return output;
     }
 
-    public Object getProjName() {
+    public String getProjName() {
         return projName;
     }
 

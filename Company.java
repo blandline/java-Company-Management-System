@@ -39,16 +39,30 @@ public class Company {
     public void addProject(Project p){
         allProjects.add(p);
     }
-    public Project createProject(String pn,String d,int t){
+    public Project createProject(String pn,String d,int t) throws ExProjectAlreadyExists{
         Project p = new Project(pn, d, t);
+        if(findProject(p.getProjName())!=null){
+            throw new ExProjectAlreadyExists();
+        }
         allProjects.add(p);
         Collections.sort( allProjects );       
         return p;
     }
 
-    public Team createTeam( String tn,String leaderName ) // See how it is called in main()
+    public Team createTeam( String tn,String leaderName ) throws ExEmployeeNotFound,ExJoinedAnotherTeam,ExTeamAlreadyExists // See how it is called in main()
     {
         Employee e = Employee.searchEmployee(allEmployees, leaderName );
+        if(e==null){
+            throw new ExEmployeeNotFound();
+        }
+        if(findTeamFromLeader(e.getName())!=null){
+            String eString = String.format("%s has already joined another team: %s",e.getName(),findTeamFromLeader(e.getName()).getTeamName());
+            throw new ExJoinedAnotherTeam(eString);
+        }
+        if(findTeam(tn)!=null){
+            
+            throw new ExTeamAlreadyExists();
+        }
         Team t = new Team( tn,e );
         allTeams.add( t );
         Collections.sort( allTeams ); //allTeams
@@ -80,7 +94,7 @@ public class Company {
             String team = "--";
             for(int i =0;i<allAssignments.size();i++){       // make a func to check if it is in assignments and if it is then print that
                 if(allAssignments.get(i).getProject()==p){
-                    team = allAssignments.get(i).getTeamName()+"("+allAssignments.get(i).getTeam().getLeaderName()+")";
+                    team = allAssignments.get(i).getTeamName()+" ("+allAssignments.get(i).getTeam().getLeaderName()+")";
                 }    
             
             }
@@ -93,6 +107,15 @@ public class Company {
     public Team findTeam(String n){
         for(Team t: allTeams){
             if(t.getTeamName().equals(n)){
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public Team findTeamFromLeader(String n){
+        for(Team t: allTeams){
+            if(t.getLeaderName().equals(n)){
                 return t;
             }
         }

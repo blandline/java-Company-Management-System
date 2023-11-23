@@ -10,14 +10,28 @@ public class CmdCreateProject extends RecordedCommand{
      
     @Override
     public void execute(String[] cmdParts){
-        Company company = Company.getInstance();
-        projName = cmdParts[1];
-        projTime = Integer.parseInt(cmdParts[3]);
-        company.createProject(cmdParts[1], cmdParts[2],projTime);
-        p = company.findProject(cmdParts[1]);
-        addUndoCommand(this);
-        clearRedoList();
-        System.out.println("Done.");
+        try {
+            if (cmdParts.length<4){
+                throw new ExInsufficientArguments();
+            } 
+            Company company = Company.getInstance();
+            projName = cmdParts[1];
+            projTime = Integer.parseInt(cmdParts[3]);
+            company.createProject(cmdParts[1], cmdParts[2],projTime);
+            p = company.findProject(cmdParts[1]);
+            addUndoCommand(this);
+            clearRedoList();
+            System.out.println("Done.");
+        
+        } catch (ExProjectAlreadyExists e) {
+            
+            System.out.println(e.getMessage());
+        } catch (ExInsufficientArguments e) {
+            
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e){
+            System.out.println("Wrong number format for project duration!");
+        }
 
         
     }
