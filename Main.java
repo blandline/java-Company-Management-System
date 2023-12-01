@@ -53,6 +53,10 @@ public class Main {
 				(new CmdListProjects()).execute(cmdParts);
 			if (cmdParts[0].equals("assign"))
 				(new CmdAssignProject()).execute(cmdParts);
+			if (cmdParts[0].equals("takeLeave"))
+				(new CmdTakeLeaves()).execute(cmdParts);
+			if (cmdParts[0].equals("listLeaves"))
+				(new CmdListleaves()).execute(cmdParts);
 		}
 		inFile.close();
 			

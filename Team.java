@@ -4,6 +4,7 @@ public class Team implements Comparable<Team>{
     private String teamName;
 	private Employee head;
 	private Day dateSetup;
+	private ArrayList <Employee> teamMembers;
 	// private Project proj;
 
 public Team(String n, Employee hd) {
@@ -14,6 +15,9 @@ public Team(String n, Employee hd) {
 }
 public String getTeamName(){
 	return teamName;
+}
+public void addToTeam(Employee e){
+	teamMembers.add(e);
 }
 
 public String getLeaderName(){

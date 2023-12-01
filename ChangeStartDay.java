@@ -9,6 +9,7 @@ public class ChangeStartDay extends RecordedCommand{
     public void execute(String[] cmdParts){
         
         try {
+            Company company = Company.getInstance();
             if (cmdParts.length<2){
                 throw new ExInsufficientArguments();
             } 

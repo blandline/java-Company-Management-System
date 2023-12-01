@@ -69,6 +69,10 @@ public class Company {
         return t; //Why return?  Ans: Later you'll find it useful for undoable comments.
     }
 
+    // public void takeLeaves(String n,String s,String e){
+    //     Leave l
+    // }
+
     public void removeTeam(Team a){
         allTeams.remove(a);
     }
@@ -159,6 +163,28 @@ public class Company {
 
     public void removeProject(Project p) {
         allProjects.remove(p);
+    }
+
+    public void takeLeaves(String employeeName, Leave l) {
+        Employee e = findEmployee(employeeName);
+        e.addLeaves(l);
+    }
+
+    public void listLeaves() {
+        for(Employee e: allEmployees){
+            e.printLeaves();
+        }
+    }
+
+    public void listLeaves(String employee) {
+        Employee e = findEmployee(employee); 
+        e.printLeaves();
+    }
+
+    public void adjustLeaves() {
+        for(Employee e: allEmployees){
+            e.updateLeaves();
+        }
     }
 
 }

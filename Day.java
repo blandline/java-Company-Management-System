@@ -1,4 +1,7 @@
-public class Day implements Cloneable{
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class Day implements Cloneable,Comparable<Day>{
 	
 	private int year;
 	private int month;
@@ -10,6 +13,7 @@ public class Day implements Cloneable{
 		this.month=m;
 		this.day=d;		
 	}
+	// public int getMon
 	public void set(String sDay){
         String[] sDayParts = sDay.split("-");
         this.day = Integer.parseInt(sDayParts[0]);
@@ -19,6 +23,10 @@ public class Day implements Cloneable{
     public Day(String sDay){
         set(sDay);
     }
+	public int getFullDate(){
+		int date = this.year*(10000)+this.month*(100)+this.day;
+		return date;
+	}
 
 	// public Day newDay(String sDay,int d){
 	// 	int nDate=0;
@@ -78,6 +86,25 @@ public class Day implements Cloneable{
 
 	}
 
+	public int dayDifference(Day b){
+		int daysOnTop = 0;
+		ArrayList <Integer> monthsInbetween = new ArrayList<>(); 
+		if(this.month != b.month){
+			for(int i = this.month+1;i<b.month;i++){
+			monthsInbetween.add(i);
+			}
+			if(monthsInbetween.size()!=0){
+				for(int i : monthsInbetween){
+					daysOnTop += getDaysForMonth(i, b.year);
+				}
+			}
+		} 
+		
+		int daysDifference = (b.day+daysOnTop)-this.day;
+
+		return daysDifference;
+
+	}
 	public int getDaysForMonth(int y,int m){
 		
 		switch(m){
@@ -133,6 +160,17 @@ public class Day implements Cloneable{
 	public String toString() {
 		return day+"-"+MonthNames.substring((month-1)*3,(month*3))+"-"+year;
 	}
+
+	@Override
+    public int compareTo(Day another)  {
+        if(this.getFullDate()>another.getFullDate()){
+			return 1;
+		}
+		if(this.getFullDate()<another.getFullDate()){
+			return -1;
+		}
+		return 0;
+    }
 
     @Override
     public Day clone(){
