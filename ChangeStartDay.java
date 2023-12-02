@@ -14,8 +14,11 @@ public class ChangeStartDay extends RecordedCommand{
                 throw new ExInsufficientArguments();
             } 
             s = SystemDate.getInstance().clone();
+            
             newDate = cmdParts[1];
             SystemDate.getInstance().set(cmdParts[1]);
+
+            company.adjustLeaves();
             addUndoCommand(this);
             clearRedoList();
             System.out.println("Done.");

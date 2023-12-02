@@ -57,6 +57,10 @@ public class Main {
 				(new CmdTakeLeaves()).execute(cmdParts);
 			if (cmdParts[0].equals("listLeaves"))
 				(new CmdListleaves()).execute(cmdParts);
+			if (cmdParts[0].equals("listTeamMembers"))
+				(new CmdListTeamMembers()).execute(cmdParts);
+			if (cmdParts[0].equals("joinTeam"))
+				(new CmdJoinTeam()).execute(cmdParts);
 		}
 		inFile.close();
 			

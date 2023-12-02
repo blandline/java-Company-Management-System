@@ -49,6 +49,15 @@ public class Company {
         return p;
     }
 
+    public boolean joinedAnotherTeam(Employee e){
+        for (Team t : allTeams) {
+            if(t.findMember(e)!=null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Team createTeam( String tn,String leaderName ) throws ExEmployeeNotFound,ExJoinedAnotherTeam,ExTeamAlreadyExists // See how it is called in main()
     {
         Employee e = Employee.searchEmployee(allEmployees, leaderName );
@@ -126,6 +135,15 @@ public class Company {
         return null;
     }
 
+    public Team findTeamFromMember(Employee e){
+        for(Team t:allTeams){
+            if(t.findMember(e)!=null){
+                return t;
+            }
+        }
+        return null;
+    }
+
     public Project findProject(String n){
         for(Project p: allProjects){
             if(p.getProjName().equals(n)){
@@ -165,9 +183,17 @@ public class Company {
         allProjects.remove(p);
     }
 
-    public void takeLeaves(String employeeName, Leave l) {
-        Employee e = findEmployee(employeeName);
-        e.addLeaves(l);
+    public void takeLeaves(String employeeName, Leave l)throws ExInsufficientLeaves,ExLeavesOverLapping {
+        try {
+            Employee employee = findEmployee(employeeName);
+            if(employee.getAnnualLeaves()<l.getDifference()){
+                throw new ExInsufficientLeaves(employee.getAnnualLeaves());
+            }
+            employee.addLeaves(l);
+        } catch (ExLeavesOverLapping e) {
+            
+            throw e;
+        }
     }
 
     public void listLeaves() {
@@ -185,6 +211,20 @@ public class Company {
         for(Employee e: allEmployees){
             e.updateLeaves();
         }
+    }
+
+    public void listTeamMembers(String t) {
+        Team team = findTeam(t);
+        team.listMembers();
+    }
+
+    public void removeLeaves(String employeeName, Leave l) {
+        Employee e = findEmployee(employeeName);
+        e.removeLeave(l);
+    }
+
+    public void removeFromTeam(Team t, Employee e) {
+        t.removeMember(e);
     }
 
 }

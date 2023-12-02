@@ -24,7 +24,7 @@ public class Day implements Cloneable,Comparable<Day>{
         set(sDay);
     }
 	public int getFullDate(){
-		int date = this.year*(10000)+this.month*(100)+this.day;
+		int date = this.year*10000+ this.month*100 +this.day;
 		return date;
 	}
 
@@ -90,21 +90,14 @@ public class Day implements Cloneable,Comparable<Day>{
 		int daysOnTop = 0;
 		ArrayList <Integer> monthsInbetween = new ArrayList<>(); 
 		if(this.month != b.month){
-			for(int i = this.month+1;i<b.month;i++){
-			monthsInbetween.add(i);
-			}
-			if(monthsInbetween.size()!=0){
-				for(int i : monthsInbetween){
-					daysOnTop += getDaysForMonth(i, b.year);
-				}
+			for(int i = this.month;i<b.month;i++){
+				daysOnTop += getDaysForMonth(b.year, i );
 			}
 		} 
-		
 		int daysDifference = (b.day+daysOnTop)-this.day;
-
-		return daysDifference;
-
+		return daysDifference+1;
 	}
+	
 	public int getDaysForMonth(int y,int m){
 		
 		switch(m){
