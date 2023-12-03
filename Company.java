@@ -51,7 +51,7 @@ public class Company {
 
     public boolean joinedAnotherTeam(Employee e){
         for (Team t : allTeams) {
-            if(t.findMember(e)!=null){
+            if(t.findMember(e)!=null||t.getLeaderName().equals(e.getName())){
                 return true;
             }
         }
@@ -64,7 +64,7 @@ public class Company {
         if(e==null){
             throw new ExEmployeeNotFound();
         }
-        if(findTeamFromLeader(e.getName())!=null){
+        if(findTeamFromLeader(e.getName())!=null||joinedAnotherTeam(e)){
             String eString = String.format("%s has already joined another team: %s",e.getName(),findTeamFromLeader(e.getName()).getTeamName());
             throw new ExJoinedAnotherTeam(eString);
         }
@@ -136,11 +136,17 @@ public class Company {
     }
 
     public Team findTeamFromMember(Employee e){
-        for(Team t:allTeams){
-            if(t.findMember(e)!=null){
-                return t;
+        if(findTeamFromLeader(e.getName())!=null){
+            return findTeamFromLeader(e.getName());
+        }
+        else{
+            for(Team t:allTeams){
+                if(t.findMember(e)!=null){
+                    return t;
+                }
             }
         }
+        
         return null;
     }
 
@@ -183,14 +189,17 @@ public class Company {
         allProjects.remove(p);
     }
 
-    public void takeLeaves(String employeeName, Leave l)throws ExInsufficientLeaves,ExLeavesOverLapping {
+    public void takeLeaves(String employeeName, Leave l)throws ExInsufficientLeaves,ExLeavesOverLapping,ExFinalStageOverlap{
         try {
             Employee employee = findEmployee(employeeName);
-            if(employee.getAnnualLeaves()<l.getDifference()){
-                throw new ExInsufficientLeaves(employee.getAnnualLeaves());
+            if(employee.getLeavesLeft()<l.getDifference()){
+                throw new ExInsufficientLeaves(employee.getLeavesLeft());
             }
             employee.addLeaves(l);
         } catch (ExLeavesOverLapping e) {
+            
+            throw e;
+        } catch (ExFinalStageOverlap e) {
             
             throw e;
         }
@@ -211,6 +220,16 @@ public class Company {
         for(Employee e: allEmployees){
             e.updateLeaves();
         }
+    }
+
+    public ArrayList<Project> findProjectFromTeam(Team a){
+        ArrayList <Project> projects = new ArrayList<>();
+        for (ProjectAssignment p : allAssignments) {
+            if(p.getTeam()==a){
+                projects.add(p.getProject());
+            }
+        }
+        return projects;
     }
 
     public void listTeamMembers(String t) {

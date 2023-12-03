@@ -20,7 +20,9 @@ public class CmdTakeLeaves extends RecordedCommand{
                 
                 addUndoCommand(this);
                 clearRedoList();
-                System.out.println("Done.  "+employeeName+"'s remaining annual leave: "+employee.getAnnualLeaves()+" days");
+                System.out.println("Done.  "+employeeName+"'s remaining annual leave: "+employee.getLeavesLeft()+" days");
+            } catch (ExFinalStageOverlap e) {
+                System.out.println(e.getMessage());
             } catch (ExInsufficientArguments e) {
                 System.out.println(e.getMessage());
             } catch (ExInsufficientLeaves e) {

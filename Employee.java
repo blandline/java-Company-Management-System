@@ -5,10 +5,12 @@ public class Employee implements Comparable<Employee>{
 
     private String name;
     private int annualLeaves;
+    private int leavesLeft;
     private ArrayList <Leave> leaves;
     public Employee(String n,int al){
         name = n;
         annualLeaves = al;
+        leavesLeft = al;
         leaves = new ArrayList<>();
     }
 
@@ -24,7 +26,19 @@ public class Employee implements Comparable<Employee>{
         }
         return null;
     }
-    public void addLeaves(Leave l) throws ExLeavesOverLapping{
+    public void addLeaves(Leave l) throws ExLeavesOverLapping,ExFinalStageOverlap{
+        Company c = Company.getInstance();
+        Team t = c.findTeamFromMember(this);
+        ArrayList<Project> projects = c.findProjectFromTeam(t);
+        if(projects!=null){
+            for(Project p: projects){
+                if(p.overLap(l)){
+                    throw new ExFinalStageOverlap(p);
+                }
+            }
+            
+        }
+        
         for(Leave a: leaves){
             if(a.leaveOverlap(l)){
                 throw new ExLeavesOverLapping(a);
@@ -32,7 +46,7 @@ public class Employee implements Comparable<Employee>{
         }
         leaves.add(l);
         Collections.sort(leaves);
-        annualLeaves -= l.getDifference();
+        leavesLeft -= l.getDifference();
     }
 
     @Override
@@ -88,7 +102,7 @@ public class Employee implements Comparable<Employee>{
         System.out.println();
     }
     public void updateAnnualLeaves(int l){
-        this.annualLeaves+=l;
+        this.leavesLeft+=l;
     }
 
     public void updateLeaves() {
@@ -106,8 +120,12 @@ public class Employee implements Comparable<Employee>{
     }
 
     public void removeLeave(Leave l) {
-        annualLeaves+=l.getDifference();
+        leavesLeft+=l.getDifference();
         leaves.remove(l);
+    }
+
+    public int getLeavesLeft() {
+        return leavesLeft;
     }
     }
 

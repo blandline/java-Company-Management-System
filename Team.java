@@ -19,6 +19,7 @@ public Team(String n, Employee hd) {
 public String getTeamName(){
 	return teamName;
 }
+
 public void addToTeam(Employee e) throws ExJoinedAnotherTeam{
 	Company c = Company.getInstance();
 	if(c.joinedAnotherTeam(e)){

@@ -97,7 +97,15 @@ public class Day implements Cloneable,Comparable<Day>{
 		int daysDifference = (b.day+daysOnTop)-this.day;
 		return daysDifference+1;
 	}
-	
+	public Day getPreviousDate(Day a,int n){
+		Day output = new Day(a.year,a.month,a.day-n+1);
+		if(!valid(output.year, output.month, output.day)){
+			output.month--;
+			output.day+= getDaysForMonth(a.year, output.month);
+		}
+		return output;
+	}
+
 	public int getDaysForMonth(int y,int m){
 		
 		switch(m){
