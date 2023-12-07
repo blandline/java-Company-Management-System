@@ -34,6 +34,10 @@ public String getLeaderName(){
 	return this.head.getName();
 }
 
+public Employee getHead(){
+	return head;
+}
+
 public static void list(ArrayList<Team> list) {
 	//Learn: "-" means left-aligned
 	System.out.printf("%-15s%-10s%-13s\n", "Team Name", "Leader","Setup Date" );
@@ -63,6 +67,31 @@ public Employee findMember(Employee a) {
 		}
 	}
 	return null;
+}
+public double getProjectCount(ArrayList<ProjectAssignment> assign,Project p){
+	double projCount = 0;
+	for(ProjectAssignment a: assign){
+		if(a.getTeam()==this){
+			projCount+=a.getProject().getProjectRatio(p);
+		}
+	}
+
+	return projCount;
+}
+
+public double getLoadingFactor(ArrayList<ProjectAssignment> assign,Project p){
+	double manPower = this.getManPower(p);
+	double projCount = this.getProjectCount(assign, p);
+	return (1 + projCount) / manPower;
+}
+
+public double getManPower(Project p){
+	double manPower = 0;
+	manPower+=getHead().getManPower(p);
+	for (Employee e : teamMembers) {
+		manPower+=e.getManPower(p);
+	}
+	return manPower;
 }
 
 

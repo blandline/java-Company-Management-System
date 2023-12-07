@@ -61,6 +61,8 @@ public class Main {
 				(new CmdListTeamMembers()).execute(cmdParts);
 			if (cmdParts[0].equals("joinTeam"))
 				(new CmdJoinTeam()).execute(cmdParts);
+			if (cmdParts[0].equals("suggestProjectTeam"))
+				(new CmdSuggestTeam()).execute(cmdParts);
 		}
 		inFile.close();
 			

@@ -117,7 +117,7 @@ public class Company {
 
 
    
-    public Team findTeam(String n){
+    public Team findTeam(String n){//remember to add throws
         for(Team t: allTeams){
             if(t.getTeamName().equals(n)){
                 return t;
@@ -244,6 +244,28 @@ public class Company {
 
     public void removeFromTeam(Team t, Employee e) {
         t.removeMember(e);
+    }
+
+    public void suggestTeam(Project p) {
+        System.out.println("During the period of project "+p.getProjName()+" ("+p.getStartDay() +" to "+p.getEndDay()+"):");
+        System.out.println("Average manpower (m) and count of existing projects (p) of each team:");
+        Team suggestedTeam = null;
+        double loadFactor = 1000;
+        for(Team t: allTeams){
+            System.out.printf("%s: m=%.2f workers, p=%.2f projects",t.getTeamName(),t.getManPower(p),t.getProjectCount(allAssignments, p));
+            System.out.println();
+            if(t.getLoadingFactor(allAssignments, p)<loadFactor){
+                suggestedTeam = t;
+                loadFactor = t.getLoadingFactor(allAssignments, p);
+            }
+        }
+        System.out.println("Projected loading factor when a team takes this project "+p.getProjName() +":");
+        for(Team t: allTeams){
+            System.out.printf("%s: (p+1)/m = %.2f",t.getTeamName(),t.getLoadingFactor(allAssignments, p));
+            System.out.println();
+        }
+        System.out.printf("Conclusion: %s should be assigned to %s for best balancing of loading\n", p.getProjName(), suggestedTeam.getTeamName());
+
     }
 
 }

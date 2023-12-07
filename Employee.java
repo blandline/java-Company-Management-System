@@ -127,5 +127,18 @@ public class Employee implements Comparable<Employee>{
     public int getLeavesLeft() {
         return leavesLeft;
     }
+
+    public double getManPower(Project p) {
+        int projectDuration = p.getDaysToComp();
+        double availableDays = projectDuration;
+
+        for (Leave l : leaves) {
+            availableDays-=l.getDaysOverlap(p);
+        }
+
+        return availableDays/projectDuration;
+    }
+
+    
     }
 

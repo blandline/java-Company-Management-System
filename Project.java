@@ -23,7 +23,9 @@ public class Project implements Comparable<Project>{
         
 
     }
-    
+    public int getDaysToComp(){
+        return daysToComp;
+    }
 
     @Override
     public String toString(){
@@ -67,6 +69,54 @@ public class Project implements Comparable<Project>{
 
     public Day getEndDay() {
         return endDay;
+    }
+
+
+    public Day getStartDay() {
+        return startDay;
+    }
+    public boolean startDayOverlap(Project p){
+        int startOverlap = this.getStartDay().compareTo(p.getStartDay());
+        int endOverlap = this.getStartDay().compareTo(p.getEndDay());
+        if(startOverlap>=0 && endOverlap<=0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean endDayOverlap(Project p){
+        int startOverlap = this.getEndDay().compareTo(p.getStartDay());
+        int endOverlap = this.getEndDay().compareTo(p.getEndDay());
+        if(startOverlap>=0 && endOverlap<=0){
+            return true;
+        }
+        return false;
+    }
+
+    public int getDaysOverlap(Project p){
+        if(this.startDayOverlap(p)&&!this.endDayOverlap(p)){
+            return this.getStartDay().dayDifference(p.getEndDay());
+        }
+        if(!this.startDayOverlap(p)&&this.endDayOverlap(p)){
+            return p.getStartDay().dayDifference(this.getEndDay());
+        }
+        if(this.startDayOverlap(p)&&this.endDayOverlap(p)){
+            return this.getStartDay().dayDifference(this.getEndDay());
+        }
+        if(this.getStartDay().compareTo(p.getStartDay())<=0&&this.getEndDay().compareTo(p.getEndDay())>=0){
+            return p.getDaysToComp();
+        }
+        return 0;
+        
+    }
+    public double getProjectRatio(Project p) {
+        double overLapRatio = 0;
+        int totalDays = p.getDaysToComp();
+
+        overLapRatio+=this.getDaysOverlap(p);
+
+        return overLapRatio/totalDays;
+
     }
     
 
