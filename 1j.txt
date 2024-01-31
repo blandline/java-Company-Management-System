@@ -1,0 +1,75 @@
+startNewDay|20-Feb-2023
+
+hire|Angel|14
+hire|Bob|14
+undo
+redo
+listEmployees
+undo
+hire|Brian|14
+redo
+hire
+hire|Bob
+hire|Bob|1234abcd
+hire|Bob|21
+hire|Bob|21
+listEmployees
+
+undo
+setupTeam|X Troop|Angel 
+undo
+listTeams
+redo
+listTeams
+undo
+setupTeam
+setupTeam|X Troop
+setupTeam|X Troop|Carol
+setupTeam|X Troop|Brian
+setupTeam|X Troop|Angel
+redo
+listTeams
+
+createProject|P702|1-Mar-2023|30
+createProject
+createProject|P001
+createProject|P001|25-Feb-2023
+createProject|P001|25-Feb-2023|five
+createProject|P001|25-Feb-2023|15
+listProjects
+undo
+listProjects
+undo
+redo
+listProjects
+createProject|P103|27-Feb-2023|10
+redo
+listProjects
+createProject|P004|28-Feb-2023|1
+createProject|P001|25-Feb-2023|15
+listProjects
+
+assign|P102|X Troop
+assign|P103|Y Gang
+assign
+assign|P103
+assign|P103|X Troop
+assign|P004|X Troop
+listProjects
+
+startNewDay|21-Feb-2023
+setupTeam|Team 007|Brian
+assign|P702|Team 007
+
+listProjects
+
+undo
+undo
+listProjects
+
+redo
+listProjects
+assign|P702|X Troop
+
+redo
+listProjects
