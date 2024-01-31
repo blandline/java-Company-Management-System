@@ -14,7 +14,7 @@ public class CmdHire extends RecordedCommand{
             }
             Company company = Company.getInstance();
             annualLeaves = Integer.parseInt(cmdParts[2]);
-
+ 
             company.createEmployee(cmdParts[1], annualLeaves);
             e = company.findEmployee(cmdParts[1]);
             addUndoCommand(this);
