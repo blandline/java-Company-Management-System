@@ -44,5 +44,6 @@ public class CmdHire extends RecordedCommand{
         Company company = Company.getInstance();
         company.addEmployee(e);
         super.addUndoCommand(this);
+        
     }
 }
